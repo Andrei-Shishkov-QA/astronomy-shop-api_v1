@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: OpenTelemetry Astronomy Shop API
+  description: Документация API для корзины магазина
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Локальный сервер
+paths:
+  /api/cart:
+    post:
+      summary: Добавить товар в корзину
+      parameters:
+        - name: currencyCode
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "USD"
+          description: Код валюты для пересчета
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  format: uuid
+                  example: "09aa3181-f0b6-4af5-ace9-ca05ed49d157"
+                item:
+                  type: object
+                  properties:
+                    productId:
+                      type: string
+                      example: "0PUK6V6EV0"
+                    quantity:
+                      type: integer
+                      example: 1
+      responses:
+        '200':
+          description: Товар успешно добавлен. Возвращается актуальное состояние корзины.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    format: uuid
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: string
+                        quantity:
+                          type: integer
