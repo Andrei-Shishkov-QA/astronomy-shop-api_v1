@@ -10,7 +10,8 @@ paths:
   /api/cart:
     post:
       summary: Добавить товар в корзину
-      tags: Управление корзиной
+      tags:
+        - Управление корзиной
       parameters:
         - name: currencyCode
           in: query
